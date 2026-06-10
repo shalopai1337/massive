@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang='ru'>
+	<head>
+		
+	</head>
+	<body>
+		<input type='text' id='part' placeholder='Введите элемент'>
+		<input type='text' id='min' placeholder='Минимальное значение'>
+		<input type='text' id='max' placeholder='Максимальное значение'>
+		<div class='output-box' id='output'>Здесь будет итог</div>
+
+		<button id='add'>Добавить элемент</button>
+		<button id='clear'>Очистить массив</button>
+		<button id='result'>Итог</button>
+		
+		<script>
+			'use strict';
+			let add = document.getElementById('add');
+			let part = document.getElementById('part');
+			let min = document.getElementById('min');
+			let max = document.getElementById('max');
+			let outputDiv = document.getElementById('output');
+
+			function filterRangeInPlace(arr, min, max) {
+				for (let i = 0; i < arr.length; i++) {
+					if (arr[i] > max || arr[i] < min) {
+						arr.splice(i, 1);
+						i--;
+					}
+				}
+			}
+			
+			let arr = [];
+			
+			add.onclick = function() {
+				arr.push(Number(part.value));
+				outputDiv.textContent = '';
+				part.value = ''
+			}
+
+			clear.onclick = function() {
+				arr.splice(0, arr.length);
+				outputDiv.textContent = '';
+			}
+
+			result.onclick = function() {
+				if (arr.length !== 0) {
+				filterRangeInPlace(arr, Number(min.value), Number(max.value));
+				outputDiv.textContent = arr;
+				} else {
+					outputDiv.textContent = 'Добавьте элементы';
+				}
+			}
+			
+		</script>
+	</body>
+</html>

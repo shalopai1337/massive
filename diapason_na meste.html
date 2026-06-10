@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang='ru'>
+	<head>
+		<title> Поиск чисел в указанном диапазоне </title>
+	</head>
+	<body>
+		<input type='number' placeholder='Введите числовой элемент' id='userNumbers'>
+		<input type='number' placeholder='Минимальное значение' id='minValue'>
+		<input type='number' placeholder='Максимальное значение' id='maxValue'>
+		
+		<button type='button' id='add'>Добавить элемент</button>
+		<button type='button' id='clear'>Очистить массив</button>
+		<button type='button' id='result'>Итог</button>
+		<div class='output-box' id='output'>Здесь будет результат</div>
+		
+		<script>
+			'use strict';
+			let numbers = document.getElementById('userNumbers');
+			let min = document.getElementById('minValue');
+			let max = document.getElementById('maxValue');
+			let output = document.getElementById('output');
+			let clear = document.getElementById('clear');
+			let add = document.getElementById('add');
+			let result = document.getElementById('result');
+			
+			let arr = [];
+			let filterRange = function(arr, a, b) {
+			    return arr.filter(function(item) {
+		        return item >= a && item <= b;
+				});
+			}
+			
+			clear.onclick = function() {
+				arr.splice(0, arr.length);
+				output.textContent = '';
+			}
+
+			add.onclick = function() {
+				let value = Number(numbers.value);
+				if (isNaN(value)) {
+				output.textContent = 'Введите число';
+				} else {
+					arr.push(Number(numbers.value));
+					output.textContent = '';
+				}
+			}
+
+			result.onclick = function() {
+				let a = Number(min.value);
+				let b = Number(max.value);
+
+				let filtered = filterRange(arr, Math.min(a, b), Math.max(a, b));
+				output.textContent = filtered.join(', ');
+				
+			}
+				
+			
+		</script>
+	</body>
+</html>
