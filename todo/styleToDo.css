@@ -1,0 +1,8 @@
+.done {
+    text-decoration: line-through;
+}
+
+button {
+    position: relative;
+    z-index: 100;
+}
