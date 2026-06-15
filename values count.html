@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang='ru'>
+	<head>
+		<meta charset='utf-8'>
+	</head>
+	<body>
+		<script>
+			'use strict';
+			let user = {
+			    name: 'John',
+			    age: 30
+		    };
+			
+			function count(user) {
+				let sum = 0;
+				for (let value of Object.values(user)) {
+					sum++;
+				}
+				console.log(sum);
+				return sum;
+			}
+
+			count(user);
+		</script>
+	</body>
+</html>
