@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang='ru'>
+	<head>
+		<meta charset='utf-8'>
+	</head>
+	<body>
+		<input type='text' id='inputText' placeholder='Введите слово'>
+		<p id='output'>Здесь будет результат</p>
+		<button type='button' id='add'>Добавить слово</button>
+		<button type='button' id='clear'>Очистить массив</button>
+		<button type='button' id='res'>Результат</button>
+		
+		<script>
+			'use strict';
+			let inputText = document.getElementById('inputText');
+			let add = document.getElementById('add');
+			let clear = document.getElementById('clear');
+			let res = document.getElementById('res');
+			let arr = [];
+
+			function aclean(arr) {
+				let newArr = new Map();
+				for (let item of arr) {
+					let key = item.toLowerCase().split('').sort().join('');
+					newArr.set(key, item);
+				}
+				output.textContent = Array.from(newArr.values());
+				return Array.from(newArr.values());
+			}
+
+			add.onclick = function() {
+				if (inputText.value != '') {
+					arr.push(inputText.value);
+					inputText.value = '';
+				}
+			}
+
+			clear.onclick = function() {
+				arr.length = 0;
+				inputText.value = '';
+				output.textContent = '';
+			}
+
+			res.onclick = function() {
+				aclean(arr);
+				
+			}
+		</script>
+	</body>
+</html>
