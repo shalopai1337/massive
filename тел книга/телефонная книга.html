@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang='ru'>
+    <head>
+        <meta charset='utf-8'>
+        <link rel='stylesheet' href='styles.css'>
+    </head>
+    <body>
+        <form class='default'>
+            <input type='text' id='text' class='text' placeholder='Введите имя'>
+            <input type='tel' id='number' class='number' placeholder='Введите номер'>
+            <button type='button' id='textBtn' class='text'>Готово</button>
+            <button type='button' id='clear' class='clear'>Очистить список имен/номеров</button>
+            <input type='text' id='textFinding' class='finding' placeholder='Чей номер нужно найти?'>
+            <button type='button' id='finding' class='finding'>Искать</button>
+            <p id='output' class='output-box'>Здесь будет результат</p>
+        </form>
+        <script>
+            let text = document.getElementById('text');
+            let number = document.getElementById('number');
+            let output = document.getElementById('output');
+            let textFinding = document.getElementById('textFinding');
+
+            let textBtn = document.getElementById('textBtn');
+            let finding = document.getElementById('finding');
+            let clear = document.getElementById('clear');
+
+            let map = new Map();
+
+            textBtn.addEventListener('click', function() {
+                if (text.value.trim() !== '') {
+                    let first = text.value.trim();
+                    let firstA = text.value[0];
+                    let last = firstA.toUpperCase() + first.slice(1);
+                    if (!map.has(last)) {
+                        map.set(last, []);
+                    }
+                    if (number.value && number.value[0] === '+') {
+                        if (!map.get(last).includes(number.value)) {
+                            let currentArray = map.get(last);
+                            map.get(last).push(number.value);
+                        }    
+                    }
+                }
+                text.value = '';
+                number.value = '';
+                return map;
+            });
+
+            finding.addEventListener('click', function() {
+                let found = map.get(textFinding.value);
+                if (found) {
+                    output.textContent = found;
+                    text.value = '';
+                    number.value = '';
+                } else {
+                    output.textContent = 'Человек не найден';
+                    text.value = '';
+                    number.value = '';
+                }
+            });
+
+            clear.addEventListener('click', function() {
+                map.clear();
+                text.value = '';
+                number.value = '';
+                output.textContent = '';
+            });
+        </script>
+    </body>
+</html>

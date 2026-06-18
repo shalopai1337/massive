@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang='ru'>
+    <head>
+        <meta charset='utf-8'>
+    </head>
+    <body>
+        <input type='text' id='input' placeholder='Введите часть массива'>
+        <p class='output-box' id='output'>Здесь будет результат</p>
+        <button type='button' id='confirm'>Добавить</button>
+        <button type='button' id='clear'>Очистить массив</button>
+        <button type='button' id='result'>Итог</button>
+        <script>
+            let input = document.getElementById('input');
+            let output = document.getElementById('output');
+            let confirm = document.getElementById('confirm');
+            let clear = document.getElementById('clear');
+            let result = document.getElementById('result');
+
+            let set = new Set();
+            let map = new Map();
+
+            confirm.addEventListener('click', function() {
+                let value = input.value.trim();
+                let first = value[0].toUpperCase()
+                if (value) {
+                    value = first + value.slice(1);
+                    set.add(value);
+                    input.value = '';
+                } 
+            });
+
+            clear.addEventListener('click', function() {
+                map.clear();
+                set.clear();
+                input.value = '';
+                output.textContent = '';
+            });
+
+            result.addEventListener('click', function() {
+                for (let name of set) {
+                    if(!map.has(name[0])) {
+                        map.set(name[0], []);
+                    }
+                    map.get(name[0]).push(name);
+                }
+                
+                output.textContent = '';
+                
+                for (let [key, item] of map) {
+                    output.textContent += `${key}: ${item}\n`;
+                }
+            });
+            
+        </script>
+    </body>
+</html>
