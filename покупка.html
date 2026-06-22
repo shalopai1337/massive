@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang='ru'>
+    <head>
+        <meta charset='utf-8'>
+        <title> Test map set arr </title>
+
+    </head>
+    <body>
+        <input type='text' id='product' placeholder='Введите название продукта'>
+        <input type='text' id='category' placeholder='Введите название категории'>
+        <p id='total'>Здесь будет результат</p>
+        <p id='categoryHidden' hidden>Категории</p>
+        <button type='button' id='add'>Добавить</button>
+        <button type='button' id='clear'>Очистить</button>
+        <button type='button' id='result'>Итог</button>
+        <button type='button' id='showCategory'>Показать категории</button>
+        <script>
+            'use strict';
+            let err = [];
+            let products = new Map();
+            let unicProducts = new Set();
+
+            let product = document.getElementById('product');
+            let category = document.getElementById('category');
+            let categoryHidden = document.getElementById('categoryHidden');
+            let total = document.getElementById('total');
+            let add = document.getElementById('add');
+            let clear = document.getElementById('clear');
+            let result = document.getElementById('result');
+            let showCategory = document.getElementById('showCategory');
+
+            add.addEventListener('click', function() {
+                categoryHidden.hidden = true;
+                let resultProduct = product.value.trim();
+                let resultCategory = category.value.trim();
+                if (!resultProduct) {
+                    err.push('Неверный ввод названия продукта');
+                }
+                if (!resultCategory) {
+                    err.push('Неверный ввод названия категории');
+                }
+                if (err.length) {
+                    for (let key of err) {
+                        total.textContent += key;
+                    }
+                    err = [];
+                } else {
+                    products.set(resultProduct, resultCategory);
+                    unicProducts.add(resultCategory);
+                    product.value = '';
+                    category.value = '';
+                    err = [];
+                } 
+            });
+
+            clear.addEventListener('click', function() {
+                categoryHidden.hidden = true;
+                products.clear();
+                err = [];
+                unicProducts.clear();
+            });
+
+            result.addEventListener('click', function() {
+                total.textContent = '';
+                for (let [key, value] of products) {
+                    total.textContent += `${key} : ${value}\n`;
+                }
+            });
+
+            showCategory.addEventListener('click', function() {
+                categoryHidden.hidden = false;
+                categoryHidden.textContent = '';
+                for (let key of unicProducts) {
+                    categoryHidden.textContent += key;
+                }
+            });
+        </script>
+    </body>
+</html>
